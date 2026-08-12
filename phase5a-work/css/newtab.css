@@ -191,9 +191,18 @@ input {
   right: 4%;
   bottom: 0;
   left: 4%;
-  height: 1px;
-  background: linear-gradient(90deg, rgba(172, 177, 226, 0.24), var(--deck-shine) 18%, rgba(250, 250, 255, 0.82) 50%, var(--deck-shine) 82%, rgba(172, 177, 226, 0.24));
-  box-shadow: 0 0 4px rgba(158, 164, 235, 0.38);
+  height: 2px;
+  background: linear-gradient(90deg,
+    rgba(179, 184, 232, 0.16) 0%,
+    rgba(235, 237, 255, 0.82) 3%,
+    rgba(196, 200, 244, 0.42) 13%,
+    rgba(244, 245, 255, 0.88) 36%,
+    rgba(255, 255, 255, 0.96) 50%,
+    rgba(242, 243, 255, 0.86) 64%,
+    rgba(194, 199, 243, 0.4) 87%,
+    rgba(235, 237, 255, 0.8) 97%,
+    rgba(179, 184, 232, 0.14) 100%);
+  box-shadow: 0 0 3px rgba(224, 226, 255, 0.54), 0 1px 5px rgba(143, 149, 230, 0.3);
   pointer-events: none;
 }
 
@@ -249,30 +258,30 @@ input {
   background: linear-gradient(180deg, #30343e 0%, #292d36 48%, #20232a 100%);
 }
 
+.deck-group:not(.is-active) .deck-tab {
+  border-color: rgba(181, 187, 224, 0.38);
+  background: linear-gradient(180deg, #30333d 0%, #282b34 38%, #20232b 72%, #181a20 100%);
+  box-shadow: inset 0 1px 0 rgba(245, 246, 255, 0.15), inset 0 5px 10px rgba(229, 232, 255, 0.025), inset 0 -7px 13px rgba(3, 4, 8, 0.28);
+}
+
+.deck-group:not(.is-active) .deck-tab:hover {
+  border-color: rgba(202, 207, 239, 0.5);
+  background: linear-gradient(180deg, #353945 0%, #2d313b 44%, #22252d 76%, #1b1d24 100%);
+}
+
 .deck-tab.is-active {
   color: var(--accent-text);
   border-color: rgba(205, 207, 255, 0.7);
   background: linear-gradient(180deg, #a4a7ff 0%, #8d91f7 48%, #7175d7 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), inset 0 -7px 13px rgba(52, 43, 133, 0.22);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 5px 10px rgba(242, 241, 255, 0.08), inset 0 -8px 14px rgba(52, 43, 133, 0.26);
   transform: translateY(-2px);
   font-weight: 700;
   z-index: 2;
 }
 
-/* Lower reflective action tray - sits directly below the mirror line
-   (PART 1 - LOWER REFLECTIVE ACTION TRAY). Per the reference image
-   this is NOT a mirrored copy that widens going down - it is a
-   second, independent inward taper: it starts just slightly wider than
-   the upper tab at the mirror line, then narrows further as it descends
-   toward the bottom. Find/Open/Gear inside stay normally oriented and
-   readable - the geometry suggests reflection, the content never
-   does. Button sizing/placement (padding, gap, font-size below) is
-   untouched by this - only this container's own width/clip-path
-   changed to align the mirror line.
-   min-width is sized to comfortably fit all three buttons' content
-   (icon + label) without the clip-path's inward taper eating into
-   the text - this floor matters most for short Deck names, where the
-   tab itself would otherwise be narrower than the tray needs. */
+/* Lower action area: the tray is a full-width, unclipped stage for the
+   controls. Its ::before paints the smaller reflected object behind
+   them, keeping visual taper completely independent from usable width. */
 .deck-tab-tray {
   position: relative;
   display: flex;
@@ -284,39 +293,54 @@ input {
   max-width: 100%;
   margin-top: -1px;
   padding: 3px 8px;
-  border: 1px solid var(--deck-edge-soft);
-  border-top-color: rgba(229, 231, 255, 0.56);
-  background: linear-gradient(to bottom, rgba(33, 36, 46, 0.88), rgba(19, 21, 27, 0.72) 76%, rgba(15, 16, 21, 0.62));
-  box-shadow: inset 0 1px 0 rgba(244, 244, 255, 0.09), inset 0 -8px 14px rgba(0, 0, 0, 0.18);
-  border-radius: 0 0 7px 7px;
-  /* The lower surface starts just 2% wider on each side than the upper
-     surface ends, making the fold feel substantial without changing the
-     tray controls or shelf density. It then tapers inward as it descends. */
-  clip-path: polygon(2% 0, 98% 0, 82% 100%, 18% 100%);
+  border: 0;
+  background: transparent;
+  box-shadow: none;
   white-space: nowrap;
-  overflow: hidden;
-  transition: background 0.12s ease, border-color 0.12s ease;
+  overflow: visible;
 }
 
-.deck-tab-tray.is-active {
-  background: linear-gradient(to bottom, rgba(119, 122, 213, 0.34), rgba(72, 74, 139, 0.18) 62%, rgba(25, 26, 48, 0.72));
-  border-color: rgba(139, 143, 245, 0.48);
-  border-top-color: rgba(239, 239, 255, 0.74);
+.deck-tab-tray::before {
+  content: '';
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  width: 74%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(157, 163, 204, 0.22);
+  border-top-color: rgba(231, 233, 255, 0.5);
+  border-radius: 0 0 7px 7px;
+  background: linear-gradient(180deg, rgba(45, 48, 59, 0.7), rgba(24, 26, 34, 0.52) 66%, rgba(13, 14, 19, 0.38));
+  box-shadow: inset 0 1px 0 rgba(248, 248, 255, 0.08), inset 0 -7px 12px rgba(0, 0, 0, 0.2), 0 3px 9px rgba(2, 3, 8, 0.16);
+  clip-path: polygon(4% 0, 96% 0, 78% 100%, 22% 100%);
+  pointer-events: none;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
+}
+
+.deck-tab-tray.is-active::before {
+  border-color: rgba(149, 153, 241, 0.38);
+  border-top-color: rgba(242, 242, 255, 0.7);
+  background: linear-gradient(180deg, rgba(122, 125, 218, 0.3), rgba(66, 68, 135, 0.17) 62%, rgba(23, 24, 48, 0.5));
+  box-shadow: inset 0 1px 0 rgba(250, 249, 255, 0.14), inset 0 -7px 12px rgba(22, 17, 64, 0.2), 0 3px 9px rgba(91, 94, 196, 0.14);
 }
 
 .deck-tab-tray__btn {
+  position: relative;
+  z-index: 1;
   display: inline-flex;
   align-items: center;
   gap: 3px;
   min-height: 20px;
-  border: 1px solid var(--deck-control-edge);
-  background: linear-gradient(180deg, rgba(70, 74, 89, 0.3), rgba(16, 18, 24, 0.4));
+  border: 1px solid rgba(166, 172, 209, 0.28);
+  background: linear-gradient(180deg, rgba(62, 66, 80, 0.26), rgba(15, 17, 23, 0.38));
   box-shadow: inset 0 1px 0 rgba(238, 239, 255, 0.07);
-  color: #a9adba;
+  color: #a6aab7;
   font-size: 10px;
   font-weight: 650;
   letter-spacing: 0.01em;
-  padding: 3px 5px;
+  padding: 3px 4px;
   border-radius: 5px;
   cursor: pointer;
   line-height: 1;
@@ -324,8 +348,8 @@ input {
 }
 
 .deck-tab-tray.is-active .deck-tab-tray__btn {
-  border-color: rgba(156, 159, 245, 0.58);
-  background: linear-gradient(180deg, rgba(49, 49, 100, 0.3), rgba(20, 20, 48, 0.4));
+  border-color: rgba(156, 159, 245, 0.48);
+  background: linear-gradient(180deg, rgba(58, 58, 114, 0.28), rgba(20, 20, 48, 0.38));
   color: #e6e6ff;
   box-shadow: inset 0 1px 0 rgba(239, 239, 255, 0.12), 0 0 4px rgba(123, 126, 235, 0.13);
 }
@@ -347,7 +371,7 @@ input {
 }
 
 .deck-tab-tray__btn--icon-only {
-  padding: 3px 6px;
+  padding: 3px 5px;
 }
 
 .deck-tab-tray__icon {
