@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Deck New Tab</title>
+  <link rel="stylesheet" href="css/newtab.css" />
+  <link rel="stylesheet" href="css/popup.css" />
+</head>
+<body>
+  <div class="popup">
+
+    <header class="popup__header">
+      <h1 class="popup__title">Add tabs to a Deck</h1>
+    </header>
+
+    <div class="popup__mode-row">
+      <span class="popup__mode-label">Capture</span>
+      <div id="capture-modes" class="popup__modes" role="tablist" aria-label="Capture mode">
+        <button type="button" class="popup__mode-btn" data-mode="tab" role="tab">Tab</button>
+        <button type="button" class="popup__mode-btn" data-mode="window" role="tab">Window</button>
+        <button type="button" class="popup__mode-btn" data-mode="curated" role="tab">Curated</button>
+      </div>
+    </div>
+
+    <div id="curated-toolbar" class="popup__toolbar">
+      <button id="select-all-btn" class="popup__link-btn" type="button">Select All</button>
+      <span class="popup__dot" aria-hidden="true">&middot;</span>
+      <button id="select-none-btn" class="popup__link-btn" type="button">Select None</button>
+      <span id="selected-count" class="popup__count">0 selected</span>
+    </div>
+
+    <!-- CURATED mode: granular checkbox list, all eligible tabs preselected -->
+    <div id="tab-list" class="tab-list" role="list">
+      <!-- current-window tabs rendered by popup.js -->
+    </div>
+
+    <!-- TAB mode: read-only preview of the single active tab -->
+    <div id="tab-preview" class="tab-list" hidden>
+      <!-- active tab rendered by popup.js -->
+    </div>
+
+    <!-- WINDOW mode: eligible-tab count only, no per-tab selection -->
+    <div id="window-summary" class="popup__window-summary" hidden></div>
+
+    <div class="popup__destination">
+      <label for="deck-select">
+        Add <span id="add-count">0</span> to
+      </label>
+      <select id="deck-select"></select>
+      <button id="add-btn" class="btn btn--primary" type="button" disabled>Add</button>
+    </div>
+
+    <div id="popup-message" class="popup__message" hidden></div>
+
+    <hr class="popup__divider" />
+
+    <button id="save-window-btn" class="popup__secondary-btn" type="button">
+      Save Current Window as New Deck
+    </button>
+
+    <details class="popup__paste">
+      <summary>Paste Links</summary>
+      <textarea
+        id="paste-textarea"
+        class="popup__textarea"
+        placeholder="https://example.com/one&#10;https://example.com/two"
+      ></textarea>
+      <div class="popup__paste-actions">
+        <select id="paste-deck-select"></select>
+        <button id="paste-add-btn" class="btn btn--primary" type="button">Add Links</button>
+      </div>
+    </details>
+
+    <details class="popup__paste">
+      <summary>Export Tabs to .txt</summary>
+      <div id="export-modes" class="popup__export-modes" role="group" aria-label="Export scope">
+        <button type="button" class="popup__mode-btn" data-scope="tab">This Tab</button>
+        <button type="button" class="popup__mode-btn" data-scope="window">This Window</button>
+        <button type="button" class="popup__mode-btn" data-scope="all">All Windows</button>
+      </div>
+      <div class="popup__paste-actions">
+        <button id="export-tabs-btn" class="btn btn--primary" type="button">Export .txt</button>
+      </div>
+    </details>
+
+  </div>
+
+  <!-- Reuses the shared .modal-overlay/.modal shell styling from newtab.css,
+       just for the "name your new Deck" prompt. -->
+  <div id="popup-modal-overlay" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="popup-modal-title">
+      <h2 id="popup-modal-title" class="modal__title">Save Current Window as New Deck</h2>
+      <div class="modal__body">
+        <label>
+          <span>Deck name</span>
+          <input id="popup-modal-input" type="text" maxlength="60" placeholder="e.g. Research" />
+          <div id="popup-modal-error" class="modal__error"></div>
+        </label>
+      </div>
+      <div class="modal__actions">
+        <button id="popup-modal-cancel" class="btn btn--ghost" type="button">Cancel</button>
+        <button id="popup-modal-confirm" class="btn btn--primary" type="button">Create</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/decks.js"></script>
+  <script src="js/tab-capture.js"></script>
+  <script src="js/popup.js"></script>
+</body>
+</html>

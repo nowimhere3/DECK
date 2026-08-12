@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>New Tab</title>
+  <link rel="stylesheet" href="css/newtab.css" />
+</head>
+<body>
+  <div class="page">
+
+    <header class="brand">
+      <span class="brand__mark" aria-hidden="true">
+        <svg viewBox="0 0 24 24" width="34" height="34" fill="none">
+          <rect x="3" y="8" width="14" height="10" rx="2.5" fill="var(--accent-dim)"/>
+          <rect x="6.5" y="4.5" width="14" height="10" rx="2.5" fill="var(--accent)"/>
+        </svg>
+      </span>
+      <h1 class="brand__title">Decks</h1>
+    </header>
+
+    <form id="search-form" class="search" autocomplete="off">
+      <svg class="search__icon" viewBox="0 0 24 24" width="18" height="18" fill="none" aria-hidden="true">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"/>
+        <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+      </svg>
+      <input
+        id="search-input"
+        class="search__input"
+        type="text"
+        placeholder="Search Google or type a URL"
+        aria-label="Search Google or type a URL"
+      />
+    </form>
+
+    <nav id="deck-tabs" class="deck-tabs" aria-label="Decks">
+      <!-- Deck tab buttons rendered by app.js -->
+    </nav>
+
+    <div class="deck-shelf-controls">
+      <button id="shelf-mode-btn" class="deck-shelf-controls__btn" type="button">Deck Controls: Auto</button>
+    </div>
+
+    <main>
+      <div id="deck-limit-note" class="deck-limit-note" hidden>
+        Maximum 10 Decks reached — delete a Deck to create a new one.
+      </div>
+
+      <div id="shortcuts-grid" class="shortcuts-grid" role="list">
+        <!-- Shortcut tiles rendered by app.js -->
+      </div>
+
+      <button id="add-shortcut-btn" class="add-shortcut-btn" type="button">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" aria-hidden="true">
+          <line x1="12" y1="5" x2="12" y2="19" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <line x1="5" y1="12" x2="19" y2="12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+        </svg>
+        Add Shortcut
+      </button>
+    </main>
+
+    <footer class="footer">
+      <button id="export-btn" class="footer__link" type="button">Export Decks</button>
+      <span class="footer__dot" aria-hidden="true">&middot;</span>
+      <button id="import-btn" class="footer__link" type="button">Import Decks</button>
+      <input id="import-file-input" type="file" accept="application/json" hidden />
+    </footer>
+
+  </div>
+
+  <!-- Generic modal shell, reused for Add Deck / Rename Deck / Add Shortcut / Edit Shortcut -->
+  <div id="modal-overlay" class="modal-overlay" hidden>
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <h2 id="modal-title" class="modal__title"></h2>
+      <div id="modal-body" class="modal__body"></div>
+      <div class="modal__actions">
+        <button id="modal-cancel" class="btn btn--ghost" type="button">Cancel</button>
+        <button id="modal-danger" class="btn btn--danger" type="button" hidden></button>
+        <button id="modal-confirm" class="btn btn--primary" type="button"></button>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" hidden></div>
+
+  <script src="js/storage.js"></script>
+  <script src="js/decks.js"></script>
+  <script src="js/browser-state.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
