@@ -1,10 +1,10 @@
 :root {
-  --bg: #15161a;
-  --bg-soft: #1c1e24;
-  --surface: #21242b;
-  --surface-hover: #282c35;
-  --border: #33363f;
-  --text: #eceef2;
+  --bg: #090a0d;
+  --bg-soft: #111217;
+  --surface: #15171d;
+  --surface-hover: #1d2028;
+  --border: #292c35;
+  --text: #fff;
   --text-muted: #9297a3;
   --text-faint: #666a75;
   --accent: #8b8ff5;
@@ -33,7 +33,7 @@ body {
 
 body {
   margin: 0;
-  background: radial-gradient(ellipse 900px 500px at 50% -10%, #23263080, transparent), var(--bg);
+  background: radial-gradient(ellipse 680px 300px at 50% -12%, rgba(39, 42, 55, 0.22), transparent 72%), var(--bg);
   color: var(--text);
   font-family: var(--font-ui);
   -webkit-font-smoothing: antialiased;
@@ -154,32 +154,33 @@ input {
   top: 46px;
   right: -3px;
   left: -3px;
-  height: 4px;
+  height: 2px;
   background: linear-gradient(90deg,
-    rgba(248, 248, 255, 0.92) 0,
-    rgba(189, 194, 255, 0.36) 4%,
-    rgba(224, 226, 255, 0.7) 18%,
-    rgba(255, 255, 255, 0.98) 50%,
-    rgba(224, 226, 255, 0.7) 82%,
-    rgba(189, 194, 255, 0.36) 96%,
-    rgba(248, 248, 255, 0.92) 100%);
-  border-radius: 50%;
-  box-shadow: 0 -2px 6px rgba(235, 237, 255, 0.35),
-    0 2px 7px rgba(151, 157, 240, 0.38);
+    transparent 0,
+    rgba(255, 255, 255, 0.92) 3%,
+    rgba(171, 176, 232, 0.16) 8%,
+    rgba(171, 176, 232, 0.08) 42%,
+    #fff 50%,
+    rgba(171, 176, 232, 0.08) 58%,
+    rgba(171, 176, 232, 0.16) 92%,
+    rgba(255, 255, 255, 0.92) 97%,
+    transparent 100%);
+  box-shadow: 0 0 3px rgba(214, 217, 255, 0.22);
   pointer-events: none;
 }
 
 .deck-tabs--expanded .deck-group.is-active::after {
   background: linear-gradient(90deg,
-    rgba(255, 255, 255, 0.98) 0,
-    rgba(196, 198, 255, 0.58) 5%,
-    rgba(238, 238, 255, 0.9) 24%,
+    transparent 0,
+    #fff 3%,
+    rgba(165, 154, 255, 0.24) 9%,
+    rgba(165, 154, 255, 0.12) 43%,
     #fff 50%,
-    rgba(238, 238, 255, 0.9) 76%,
-    rgba(196, 198, 255, 0.58) 95%,
-    rgba(255, 255, 255, 0.98) 100%);
-  box-shadow: 0 -2px 7px rgba(246, 245, 255, 0.48),
-    0 2px 8px rgba(148, 151, 255, 0.52);
+    rgba(165, 154, 255, 0.12) 57%,
+    rgba(165, 154, 255, 0.24) 91%,
+    #fff 97%,
+    transparent 100%);
+  box-shadow: 0 0 4px rgba(255, 255, 255, 0.42), 0 1px 5px rgba(132, 112, 255, 0.38);
 }
 
 .deck-group.is-active,
@@ -188,7 +189,7 @@ input {
      shape (unlike box-shadow, which only ever follows the bounding
      box), so this reads as a glow hugging the trapezoid/hexagon
      silhouette itself - see PART 1 - VISUAL STATES / active glow. */
-  filter: drop-shadow(0 0 10px rgba(139, 143, 245, 0.55)) drop-shadow(0 2px 14px rgba(139, 143, 245, 0.3));
+  filter: drop-shadow(0 1px 4px rgba(120, 98, 255, 0.34));
 }
 
 .deck-tab {
@@ -199,8 +200,8 @@ input {
   padding: 8px 16px;
   border: 1px solid var(--deck-edge);
   border-bottom: none;
-  background: linear-gradient(180deg, #292c35 0%, #23262e 48%, #1b1d24 100%);
-  color: var(--text-muted);
+  background: linear-gradient(180deg, #1c1f27 0%, #15171e 52%, #0c0d12 100%);
+  color: #fff;
   font-size: 13px;
   font-weight: 600;
   letter-spacing: 0.01em;
@@ -229,7 +230,7 @@ input {
   bottom: 0;
   left: 4%;
   z-index: 3;
-  height: 3px;
+  height: 2px;
   background: linear-gradient(90deg,
     rgba(179, 184, 232, 0.16) 0%,
     rgba(235, 237, 255, 0.82) 3%,
@@ -240,8 +241,7 @@ input {
     rgba(194, 199, 243, 0.4) 87%,
     rgba(235, 237, 255, 0.8) 97%,
     rgba(179, 184, 232, 0.14) 100%);
-  box-shadow: 0 -2px 5px rgba(244, 245, 255, 0.42),
-    0 2px 6px rgba(151, 157, 241, 0.46);
+  box-shadow: 0 0 3px rgba(232, 234, 255, 0.24);
   pointer-events: none;
 }
 
@@ -257,7 +257,7 @@ input {
   min-width: 150px;
   min-height: 48px;
   padding: 12px 16px 11px;
-  box-shadow: inset 0 1px 0 rgba(248, 249, 255, 0.2),
+  box-shadow: inset 0 1px 0 rgba(248, 249, 255, 0.14),
     inset 0 7px 15px rgba(232, 235, 255, 0.035),
     inset 0 -12px 18px rgba(3, 4, 8, 0.34);
 }
@@ -303,36 +303,31 @@ input {
 }
 
 .deck-group:not(.is-active) .deck-tab {
-  border-color: rgba(190, 196, 232, 0.44);
-  background: radial-gradient(ellipse 78% 48% at 50% 0%, rgba(104, 110, 132, 0.2), transparent 72%),
-    linear-gradient(180deg, #343741 0%, #292d36 42%, #20232b 69%, #15171d 100%);
-  box-shadow: inset 0 1px 0 rgba(249, 250, 255, 0.22),
-    inset 0 8px 15px rgba(229, 232, 255, 0.035),
-    inset 0 -13px 18px rgba(2, 3, 7, 0.38);
+  border-color: rgba(174, 181, 224, 0.22);
+  background: linear-gradient(180deg, #20232b 0%, #171920 42%, #101117 72%, #090a0e 100%);
+  box-shadow: inset 0 1px 0 rgba(249, 250, 255, 0.14), inset 0 -12px 18px rgba(0, 0, 0, 0.44);
 }
 
 .deck-group:not(.is-active) .deck-tab:hover {
   border-color: rgba(202, 207, 239, 0.5);
-  background: linear-gradient(180deg, #353945 0%, #2d313b 44%, #22252d 76%, #1b1d24 100%);
+  background: linear-gradient(180deg, #282b35 0%, #1d2028 48%, #101218 100%);
 }
 
 .deck-tab.is-active {
-  color: var(--accent-text);
+  color: #fff;
   border-color: rgba(205, 207, 255, 0.7);
-  background: linear-gradient(180deg, #a4a7ff 0%, #8d91f7 48%, #7175d7 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 5px 10px rgba(242, 241, 255, 0.08), inset 0 -8px 14px rgba(52, 43, 133, 0.26);
+  background: linear-gradient(180deg, #8072f3 0%, #6252d3 48%, #3d318d 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 -8px 14px rgba(31, 21, 94, 0.34);
   transform: translateY(-2px);
   font-weight: 700;
   z-index: 2;
 }
 
 .deck-group .deck-tab.is-active {
-  background: radial-gradient(ellipse 76% 55% at 50% 0%, rgba(240, 240, 255, 0.34), transparent 72%),
-    linear-gradient(180deg, #aeb0ff 0%, #9497f8 40%, #7b7fdf 70%, #6569c7 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.62),
-    inset 0 8px 15px rgba(244, 242, 255, 0.12),
-    inset 0 -13px 18px rgba(47, 38, 126, 0.3),
-    0 0 8px rgba(153, 157, 255, 0.28);
+  background: radial-gradient(ellipse 44% 20% at 50% 0%, rgba(255, 255, 255, 0.3), transparent 76%),
+    linear-gradient(180deg, #8072f3 0%, #6758dc 44%, #4c3eac 72%, #30266f 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.48),
+    inset 0 -13px 18px rgba(25, 15, 82, 0.38);
   transform: none;
 }
 
@@ -421,7 +416,7 @@ input {
   border: 1px solid rgba(188, 194, 230, 0.42);
   background: linear-gradient(180deg, rgba(69, 73, 88, 0.48), rgba(15, 17, 24, 0.62));
   box-shadow: inset 0 1px 0 rgba(246, 247, 255, 0.12);
-  color: #c2c5d0;
+  color: #fff;
   font-size: 10px;
   font-weight: 650;
   letter-spacing: 0.01em;
@@ -435,8 +430,8 @@ input {
 .deck-tab-tray.is-active .deck-tab-tray__btn {
   border-color: rgba(156, 159, 245, 0.48);
   background: linear-gradient(180deg, rgba(58, 58, 114, 0.28), rgba(20, 20, 48, 0.38));
-  color: #e6e6ff;
-  box-shadow: inset 0 1px 0 rgba(239, 239, 255, 0.12), 0 0 4px rgba(123, 126, 235, 0.13);
+  color: #fff;
+  box-shadow: inset 0 1px 0 rgba(239, 239, 255, 0.12);
 }
 
 .deck-tab-tray__btn:hover,
