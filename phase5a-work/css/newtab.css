@@ -146,25 +146,30 @@ input {
 }
 
 /* [DECK-REFLECTION-SEAM]
-   WHAT: A narrow dark shared seam joins the upper tabs to their reflections.
-   WHY: The control uses contrast at the fold, not a continuous white rail.
-   FUTURE / DO-NOT-BREAK: Keep highlights local to surfaces; never brighten this into a shelf-wide glow. */
+   The fold stays dark through its centre, with small reflected catches at
+   the points where each sloped tab edge meets the tray. */
 .deck-tabs--expanded .deck-group::after {
   content: '';
   position: absolute;
   z-index: 4;
-  top: 43px;
-  right: -3px;
-  left: -3px;
-  height: 3px;
-  background: linear-gradient(90deg, transparent 0, rgba(5, 6, 10, 0.8) 5%, #010205 43%, #000 50%, #010205 57%, rgba(5, 6, 10, 0.8) 95%, transparent 100%);
-  box-shadow: none;
+  top: 42px;
+  right: -5px;
+  left: -5px;
+  height: 5px;
+  background:
+    radial-gradient(ellipse 9px 3px at 5% 50%, rgba(255, 255, 255, 0.82) 0, rgba(220, 224, 255, 0.28) 32%, transparent 72%),
+    radial-gradient(ellipse 9px 3px at 95% 50%, rgba(255, 255, 255, 0.82) 0, rgba(220, 224, 255, 0.28) 32%, transparent 72%),
+    linear-gradient(90deg, transparent 0, rgba(161, 167, 200, 0.24) 7%, rgba(4, 5, 9, 0.9) 22%, #000 50%, rgba(4, 5, 9, 0.9) 78%, rgba(161, 167, 200, 0.24) 93%, transparent 100%);
+  box-shadow: inset 0 1px rgba(238, 240, 255, 0.14), inset 0 -1px rgba(150, 156, 191, 0.1);
   pointer-events: none;
 }
 
 .deck-tabs--expanded .deck-group.is-active::after {
-  background: linear-gradient(90deg, transparent 0, rgba(14, 9, 38, 0.9) 5%, #030208 42%, #000 50%, #030208 58%, rgba(14, 9, 38, 0.9) 95%, transparent 100%);
-  box-shadow: none;
+  background:
+    radial-gradient(ellipse 11px 4px at 5% 50%, rgba(255, 255, 255, 0.92) 0, rgba(207, 199, 255, 0.5) 28%, rgba(120, 93, 238, 0.2) 52%, transparent 75%),
+    radial-gradient(ellipse 11px 4px at 95% 50%, rgba(255, 255, 255, 0.92) 0, rgba(207, 199, 255, 0.5) 28%, rgba(120, 93, 238, 0.2) 52%, transparent 75%),
+    linear-gradient(90deg, transparent 0, rgba(130, 105, 238, 0.34) 9%, rgba(12, 8, 31, 0.94) 24%, #010104 50%, rgba(12, 8, 31, 0.94) 76%, rgba(130, 105, 238, 0.34) 91%, transparent 100%);
+  box-shadow: inset 0 1px rgba(244, 241, 255, 0.24), inset 0 -1px rgba(105, 78, 220, 0.2);
 }
 
 .deck-group.is-active,
@@ -214,7 +219,7 @@ input {
   left: 4%;
   z-index: 3;
   height: 1px;
-  background: linear-gradient(90deg, transparent 0 15%, rgba(205, 207, 238, 0.13) 30%, rgba(239, 238, 255, 0.2) 42%, rgba(132, 124, 191, 0.08) 64%, transparent 88%);
+  background: linear-gradient(90deg, transparent 0 8%, rgba(205, 207, 238, 0.16) 22%, rgba(249, 249, 255, 0.32) 43%, rgba(173, 168, 218, 0.12) 68%, transparent 94%);
   box-shadow: none;
   pointer-events: none;
 }
@@ -347,10 +352,10 @@ input {
   z-index: 0;
   inset: 0 2px;
   border: 1px solid rgba(136, 142, 174, 0.24);
-  border-top-color: rgba(178, 181, 207, 0.18);
+  border-top-color: rgba(226, 229, 249, 0.3);
   border-radius: 0 0 7px 7px;
   background: linear-gradient(180deg, rgba(31, 34, 43, 0.7) 0%, rgba(18, 20, 27, 0.5) 55%, rgba(8, 9, 13, 0.08) 100%);
-  box-shadow: inset 0 -1px 0 rgba(173, 177, 205, 0.08), 0 3px 8px rgba(0, 0, 0, 0.2);
+  box-shadow: inset 0 1px 0 rgba(244, 245, 255, 0.08), inset 0 -1px 0 rgba(173, 177, 205, 0.08), 0 3px 8px rgba(0, 0, 0, 0.2);
   clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%);
   pointer-events: none;
 }
@@ -374,13 +379,13 @@ input {
 }
 
 .deck-tab-tray.is-active::before {
-  background: linear-gradient(180deg, rgba(104, 77, 214, 0.25), rgba(50, 34, 115, 0.13) 55%, rgba(13, 9, 31, 0.01));
+  background: radial-gradient(ellipse 62% 26% at 50% 0, rgba(189, 177, 255, 0.2), transparent 78%), linear-gradient(180deg, rgba(104, 77, 214, 0.28), rgba(50, 34, 115, 0.13) 55%, rgba(13, 9, 31, 0.01));
   box-shadow: none;
 }
 
 .deck-tab-tray.is-active::after {
   border-color: rgba(116, 95, 218, 0.42);
-  border-top-color: rgba(160, 145, 239, 0.25);
+  border-top-color: rgba(218, 210, 255, 0.46);
   background: linear-gradient(180deg, rgba(70, 53, 143, 0.44), rgba(30, 23, 67, 0.28) 55%, rgba(9, 7, 18, 0.05));
   box-shadow: inset 0 -1px 0 rgba(119, 93, 220, 0.16), 0 3px 9px rgba(46, 27, 116, 0.18);
 }
