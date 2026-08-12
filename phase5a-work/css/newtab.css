@@ -15,6 +15,10 @@
   --radius-md: 14px;
   --radius-lg: 20px;
   --shadow-lift: 0 12px 30px -12px rgba(0, 0, 0, 0.55);
+  --deck-edge: rgba(178, 183, 220, 0.34);
+  --deck-edge-soft: rgba(156, 162, 202, 0.2);
+  --deck-shine: rgba(235, 236, 255, 0.68);
+  --deck-control-edge: rgba(166, 172, 209, 0.34);
   --font-ui: -apple-system, "Segoe UI", "Inter", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
@@ -156,9 +160,9 @@ input {
   align-items: center;
   justify-content: center;
   padding: 8px 16px;
-  border: 1px solid var(--border);
+  border: 1px solid var(--deck-edge);
   border-bottom: none;
-  background: var(--bg-soft);
+  background: linear-gradient(180deg, #292c35 0%, #23262e 48%, #1b1d24 100%);
   color: var(--text-muted);
   font-size: 13px;
   font-weight: 600;
@@ -166,7 +170,8 @@ input {
   text-align: center;
   border-radius: 8px 8px 0 0;
   cursor: pointer;
-  transition: background 0.12s ease, color 0.12s ease, transform 0.12s ease;
+  box-shadow: inset 0 1px 0 rgba(238, 239, 255, 0.12), inset 0 -5px 12px rgba(4, 5, 9, 0.2);
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease, transform 0.12s ease;
   /* Silhouette (per reference image): NARROW at the top edge,
      progressively WIDENING as it descends toward the mirror line
      (the bottom edge of this tab, where it meets the tray below).
@@ -176,6 +181,20 @@ input {
      .deck-group box width, so the two edges land at the exact same
      pixel width - see the mirror-line note on .deck-tab-tray. */
   clip-path: polygon(12% 0, 88% 0, 96% 100%, 4% 100%);
+}
+
+/* A clipped specular edge supplies the waterline without adding height
+   or changing the expanded control's measured footprint. */
+.deck-group .deck-tab::after {
+  content: '';
+  position: absolute;
+  right: 4%;
+  bottom: 0;
+  left: 4%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(172, 177, 226, 0.24), var(--deck-shine) 18%, rgba(250, 250, 255, 0.82) 50%, var(--deck-shine) 82%, rgba(172, 177, 226, 0.24));
+  box-shadow: 0 0 4px rgba(158, 164, 235, 0.38);
+  pointer-events: none;
 }
 
 /* Only the expanded presentation's upper tab needs to fill its
@@ -226,12 +245,15 @@ input {
 
 .deck-tab:hover {
   color: var(--text);
-  background: var(--surface-hover);
+  border-color: rgba(194, 199, 231, 0.48);
+  background: linear-gradient(180deg, #30343e 0%, #292d36 48%, #20232a 100%);
 }
 
 .deck-tab.is-active {
   color: var(--accent-text);
-  background: var(--accent);
+  border-color: rgba(205, 207, 255, 0.7);
+  background: linear-gradient(180deg, #a4a7ff 0%, #8d91f7 48%, #7175d7 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.34), inset 0 -7px 13px rgba(52, 43, 133, 0.22);
   transform: translateY(-2px);
   font-weight: 700;
   z-index: 2;
@@ -252,6 +274,7 @@ input {
    the text - this floor matters most for short Deck names, where the
    tab itself would otherwise be narrower than the tray needs. */
 .deck-tab-tray {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -261,8 +284,10 @@ input {
   max-width: 100%;
   margin-top: -1px;
   padding: 3px 8px;
-  border: 1px solid var(--border);
-  background: linear-gradient(to bottom, var(--surface), var(--bg-soft) 70%);
+  border: 1px solid var(--deck-edge-soft);
+  border-top-color: rgba(229, 231, 255, 0.56);
+  background: linear-gradient(to bottom, rgba(33, 36, 46, 0.88), rgba(19, 21, 27, 0.72) 76%, rgba(15, 16, 21, 0.62));
+  box-shadow: inset 0 1px 0 rgba(244, 244, 255, 0.09), inset 0 -8px 14px rgba(0, 0, 0, 0.18);
   border-radius: 0 0 7px 7px;
   /* The lower surface starts just 2% wider on each side than the upper
      surface ends, making the fold feel substantial without changing the
@@ -274,17 +299,20 @@ input {
 }
 
 .deck-tab-tray.is-active {
-  background: linear-gradient(to bottom, rgba(139, 143, 245, 0.28), rgba(139, 143, 245, 0.07) 70%);
-  border-color: var(--accent-dim);
+  background: linear-gradient(to bottom, rgba(119, 122, 213, 0.34), rgba(72, 74, 139, 0.18) 62%, rgba(25, 26, 48, 0.72));
+  border-color: rgba(139, 143, 245, 0.48);
+  border-top-color: rgba(239, 239, 255, 0.74);
 }
 
 .deck-tab-tray__btn {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  border: none;
-  background: transparent;
-  color: var(--text-faint);
+  min-height: 20px;
+  border: 1px solid var(--deck-control-edge);
+  background: linear-gradient(180deg, rgba(70, 74, 89, 0.3), rgba(16, 18, 24, 0.4));
+  box-shadow: inset 0 1px 0 rgba(238, 239, 255, 0.07);
+  color: #a9adba;
   font-size: 10px;
   font-weight: 650;
   letter-spacing: 0.01em;
@@ -292,23 +320,29 @@ input {
   border-radius: 5px;
   cursor: pointer;
   line-height: 1;
+  transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
 }
 
 .deck-tab-tray.is-active .deck-tab-tray__btn {
-  color: var(--accent-text);
-  opacity: 0.85;
+  border-color: rgba(156, 159, 245, 0.58);
+  background: linear-gradient(180deg, rgba(49, 49, 100, 0.3), rgba(20, 20, 48, 0.4));
+  color: #e6e6ff;
+  box-shadow: inset 0 1px 0 rgba(239, 239, 255, 0.12), 0 0 4px rgba(123, 126, 235, 0.13);
 }
 
 .deck-tab-tray__btn:hover,
 .deck-tab-tray__btn:focus-visible {
-  background: rgba(139, 143, 245, 0.18);
+  border-color: rgba(208, 211, 239, 0.62);
+  background: linear-gradient(180deg, rgba(101, 105, 126, 0.46), rgba(32, 34, 44, 0.6));
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 0 5px rgba(151, 157, 224, 0.16);
   color: var(--text);
 }
 
 .deck-tab-tray.is-active .deck-tab-tray__btn:hover,
 .deck-tab-tray.is-active .deck-tab-tray__btn:focus-visible {
-  background: rgba(0, 0, 0, 0.14);
-  color: var(--accent-text);
+  border-color: rgba(213, 214, 255, 0.78);
+  background: linear-gradient(180deg, rgba(104, 104, 188, 0.5), rgba(42, 42, 91, 0.58));
+  color: #fff;
   opacity: 1;
 }
 
