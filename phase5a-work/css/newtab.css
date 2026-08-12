@@ -122,8 +122,8 @@ input {
   flex-wrap: wrap;
   justify-content: center;
   align-items: flex-end;
-  gap: 5px;
-  margin-bottom: 10px;
+  gap: 4px;
+  margin-bottom: 9px;
 }
 
 .deck-tabs--collapsed {
@@ -142,45 +142,29 @@ input {
   display: flex;
   flex-direction: column;
   align-items: center;
-  min-width: 150px;
+  min-width: 154px;
 }
 
-/* The groups keep their real 5px layout gap, while this light spill crosses
-   that gap optically to make the expanded controls read as one shelf. */
+/* [DECK-REFLECTION-SEAM]
+   WHAT: A narrow dark shared seam joins the upper tabs to their reflections.
+   WHY: The control uses contrast at the fold, not a continuous white rail.
+   FUTURE / DO-NOT-BREAK: Keep highlights local to surfaces; never brighten this into a shelf-wide glow. */
 .deck-tabs--expanded .deck-group::after {
   content: '';
   position: absolute;
   z-index: 4;
-  top: 46px;
+  top: 43px;
   right: -3px;
   left: -3px;
-  height: 2px;
-  background: linear-gradient(90deg,
-    transparent 0,
-    rgba(255, 255, 255, 0.92) 3%,
-    rgba(171, 176, 232, 0.16) 8%,
-    rgba(171, 176, 232, 0.08) 42%,
-    #fff 50%,
-    rgba(171, 176, 232, 0.08) 58%,
-    rgba(171, 176, 232, 0.16) 92%,
-    rgba(255, 255, 255, 0.92) 97%,
-    transparent 100%);
-  box-shadow: 0 0 3px rgba(214, 217, 255, 0.22);
+  height: 3px;
+  background: linear-gradient(90deg, transparent 0, rgba(5, 6, 10, 0.8) 5%, #010205 43%, #000 50%, #010205 57%, rgba(5, 6, 10, 0.8) 95%, transparent 100%);
+  box-shadow: none;
   pointer-events: none;
 }
 
 .deck-tabs--expanded .deck-group.is-active::after {
-  background: linear-gradient(90deg,
-    transparent 0,
-    #fff 3%,
-    rgba(165, 154, 255, 0.24) 9%,
-    rgba(165, 154, 255, 0.12) 43%,
-    #fff 50%,
-    rgba(165, 154, 255, 0.12) 57%,
-    rgba(165, 154, 255, 0.24) 91%,
-    #fff 97%,
-    transparent 100%);
-  box-shadow: 0 0 4px rgba(255, 255, 255, 0.42), 0 1px 5px rgba(132, 112, 255, 0.38);
+  background: linear-gradient(90deg, transparent 0, rgba(14, 9, 38, 0.9) 5%, #030208 42%, #000 50%, #030208 58%, rgba(14, 9, 38, 0.9) 95%, transparent 100%);
+  box-shadow: none;
 }
 
 .deck-group.is-active,
@@ -189,7 +173,7 @@ input {
      shape (unlike box-shadow, which only ever follows the bounding
      box), so this reads as a glow hugging the trapezoid/hexagon
      silhouette itself - see PART 1 - VISUAL STATES / active glow. */
-  filter: drop-shadow(0 1px 4px rgba(120, 98, 255, 0.34));
+  filter: drop-shadow(0 2px 3px rgba(91, 60, 205, 0.18));
 }
 
 .deck-tab {
@@ -221,8 +205,7 @@ input {
   clip-path: polygon(12% 0, 88% 0, 96% 100%, 4% 100%);
 }
 
-/* A clipped specular edge supplies the waterline without adding height
-   or changing the expanded control's measured footprint. */
+/* Local bottom-edge reflection only; the shared fold itself remains dark. */
 .deck-group .deck-tab::after {
   content: '';
   position: absolute;
@@ -230,18 +213,9 @@ input {
   bottom: 0;
   left: 4%;
   z-index: 3;
-  height: 2px;
-  background: linear-gradient(90deg,
-    rgba(179, 184, 232, 0.16) 0%,
-    rgba(235, 237, 255, 0.82) 3%,
-    rgba(196, 200, 244, 0.42) 13%,
-    rgba(244, 245, 255, 0.88) 36%,
-    rgba(255, 255, 255, 0.96) 50%,
-    rgba(242, 243, 255, 0.86) 64%,
-    rgba(194, 199, 243, 0.4) 87%,
-    rgba(235, 237, 255, 0.8) 97%,
-    rgba(179, 184, 232, 0.14) 100%);
-  box-shadow: 0 0 3px rgba(232, 234, 255, 0.24);
+  height: 1px;
+  background: linear-gradient(90deg, transparent 0 15%, rgba(205, 207, 238, 0.13) 30%, rgba(239, 238, 255, 0.2) 42%, rgba(132, 124, 191, 0.08) 64%, transparent 88%);
+  box-shadow: none;
   pointer-events: none;
 }
 
@@ -254,9 +228,9 @@ input {
    stretching to fill the shelf row. */
 .deck-group .deck-tab {
   width: 100%;
-  min-width: 150px;
-  min-height: 48px;
-  padding: 12px 16px 11px;
+  min-width: 154px;
+  min-height: 44px;
+  padding: 10px 16px 9px;
   box-shadow: inset 0 1px 0 rgba(248, 249, 255, 0.14),
     inset 0 7px 15px rgba(232, 235, 255, 0.035),
     inset 0 -12px 18px rgba(3, 4, 8, 0.34);
@@ -304,8 +278,20 @@ input {
 
 .deck-group:not(.is-active) .deck-tab {
   border-color: rgba(174, 181, 224, 0.22);
-  background: linear-gradient(180deg, #20232b 0%, #171920 42%, #101117 72%, #090a0e 100%);
-  box-shadow: inset 0 1px 0 rgba(249, 250, 255, 0.14), inset 0 -12px 18px rgba(0, 0, 0, 0.44);
+  background: linear-gradient(112deg, rgba(255, 255, 255, 0.06) 0 10%, transparent 27%), linear-gradient(180deg, #1c1f27 0%, #14161d 43%, #0c0d12 74%, #07080b 100%);
+  box-shadow: inset 0 1px 0 rgba(249, 250, 255, 0.1), inset 0 -11px 16px rgba(0, 0, 0, 0.5);
+}
+
+/* [DECK-SURFACE-SHIMMER]
+   WHAT: Position-dependent gloss catches vary across adjacent upper tabs.
+   WHY: The reference material has asymmetric reflections rather than a repeated flat fill.
+   FUTURE / DO-NOT-BREAK: Keep these faint, static, and surface-local—no noise or global bloom. */
+.deck-group:nth-child(3n + 2):not(.is-active) .deck-tab {
+  background: linear-gradient(132deg, transparent 16%, rgba(235, 238, 255, 0.1) 35%, transparent 55%), linear-gradient(180deg, #1c1f27, #111319 48%, #07080b);
+}
+
+.deck-group:nth-child(3n):not(.is-active) .deck-tab {
+  background: radial-gradient(ellipse 38% 22% at 72% 0%, rgba(244, 245, 255, 0.15), transparent 75%), linear-gradient(180deg, #1c1f27, #12141a 50%, #07080b);
 }
 
 .deck-group:not(.is-active) .deck-tab:hover {
@@ -314,20 +300,20 @@ input {
 }
 
 .deck-tab.is-active {
-  color: #fff;
-  border-color: rgba(205, 207, 255, 0.7);
-  background: linear-gradient(180deg, #8072f3 0%, #6252d3 48%, #3d318d 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.42), inset 0 -8px 14px rgba(31, 21, 94, 0.34);
+  color: #08060e;
+  border-color: rgba(157, 146, 236, 0.58);
+  background: linear-gradient(180deg, #8377ff 0%, #6758ef 52%, #4432ad 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), inset 0 -8px 14px rgba(22, 12, 72, 0.48);
   transform: translateY(-2px);
-  font-weight: 700;
+  font-weight: 400;
   z-index: 2;
 }
 
 .deck-group .deck-tab.is-active {
-  background: radial-gradient(ellipse 44% 20% at 50% 0%, rgba(255, 255, 255, 0.3), transparent 76%),
-    linear-gradient(180deg, #8072f3 0%, #6758dc 44%, #4c3eac 72%, #30266f 100%);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.48),
-    inset 0 -13px 18px rgba(25, 15, 82, 0.38);
+  background: radial-gradient(ellipse 38% 24% at 68% 0%, rgba(255, 255, 255, 0.34), transparent 72%),
+    linear-gradient(124deg, rgba(52, 35, 144, 0.22) 4%, transparent 35%),
+    linear-gradient(180deg, #8276ff 0%, #6d5df5 42%, #5846d6 72%, #39288f 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), inset 0 -12px 17px rgba(18, 9, 66, 0.48);
   transform: none;
 }
 
@@ -341,11 +327,11 @@ input {
   justify-content: center;
   gap: 2px;
   width: 100%;
-  min-width: 144px;
+  min-width: 150px;
   max-width: 100%;
   margin-top: -1px;
-  min-height: 30px;
-  padding: 4px 7px 5px;
+  min-height: 34px;
+  padding: 6px 7px 8px;
   border: 0;
   background: transparent;
   box-shadow: none;
@@ -360,13 +346,11 @@ input {
   position: absolute;
   z-index: 0;
   inset: 0 2px;
-  border: 1px solid rgba(165, 171, 213, 0.34);
-  border-top-color: rgba(242, 243, 255, 0.72);
+  border: 1px solid rgba(136, 142, 174, 0.24);
+  border-top-color: rgba(178, 181, 207, 0.18);
   border-radius: 0 0 7px 7px;
-  background: linear-gradient(180deg, rgba(40, 43, 54, 0.56), rgba(16, 18, 25, 0.5));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.09),
-    inset 0 -7px 12px rgba(0, 0, 0, 0.22),
-    0 3px 9px rgba(2, 3, 8, 0.2);
+  background: linear-gradient(180deg, rgba(31, 34, 43, 0.7) 0%, rgba(18, 20, 27, 0.5) 55%, rgba(8, 9, 13, 0.08) 100%);
+  box-shadow: inset 0 -1px 0 rgba(173, 177, 205, 0.08), 0 3px 8px rgba(0, 0, 0, 0.2);
   clip-path: polygon(0 0, 100% 0, 96% 100%, 4% 100%);
   pointer-events: none;
 }
@@ -376,34 +360,29 @@ input {
   position: absolute;
   z-index: 1;
   top: 1px;
-  bottom: 2px;
+  bottom: 3px;
   left: 50%;
   width: 73%;
   transform: translateX(-50%);
-  border: 1px solid rgba(157, 163, 204, 0.22);
-  border-top-color: rgba(231, 233, 255, 0.5);
-  border-radius: 0 0 7px 7px;
-  background: linear-gradient(180deg, rgba(72, 76, 94, 0.58), rgba(30, 33, 43, 0.56) 58%, rgba(11, 12, 17, 0.48));
-  box-shadow: inset 0 1px 0 rgba(248, 248, 255, 0.08), inset 0 -7px 12px rgba(0, 0, 0, 0.2), 0 3px 9px rgba(2, 3, 8, 0.16);
+  border: 0;
+  border-radius: 0;
+  background: linear-gradient(180deg, rgba(62, 65, 80, 0.3), rgba(25, 27, 35, 0.14) 58%, transparent 100%);
+  box-shadow: none;
   clip-path: polygon(4% 0, 96% 0, 78% 100%, 22% 100%);
   pointer-events: none;
   transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease;
 }
 
 .deck-tab-tray.is-active::before {
-  border-color: rgba(149, 153, 241, 0.38);
-  border-top-color: rgba(242, 242, 255, 0.7);
-  background: linear-gradient(180deg, rgba(151, 153, 239, 0.38), rgba(76, 78, 151, 0.24) 58%, rgba(25, 25, 53, 0.56));
-  box-shadow: inset 0 1px 0 rgba(250, 249, 255, 0.14), inset 0 -7px 12px rgba(22, 17, 64, 0.2), 0 3px 9px rgba(91, 94, 196, 0.14);
+  background: linear-gradient(180deg, rgba(104, 77, 214, 0.25), rgba(50, 34, 115, 0.13) 55%, rgba(13, 9, 31, 0.01));
+  box-shadow: none;
 }
 
 .deck-tab-tray.is-active::after {
-  border-color: rgba(164, 168, 246, 0.48);
-  border-top-color: rgba(251, 250, 255, 0.86);
-  background: linear-gradient(180deg, rgba(72, 73, 126, 0.42), rgba(20, 20, 43, 0.5));
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.14),
-    inset 0 -7px 12px rgba(19, 15, 57, 0.24),
-    0 3px 10px rgba(91, 94, 196, 0.16);
+  border-color: rgba(116, 95, 218, 0.42);
+  border-top-color: rgba(160, 145, 239, 0.25);
+  background: linear-gradient(180deg, rgba(70, 53, 143, 0.44), rgba(30, 23, 67, 0.28) 55%, rgba(9, 7, 18, 0.05));
+  box-shadow: inset 0 -1px 0 rgba(119, 93, 220, 0.16), 0 3px 9px rgba(46, 27, 116, 0.18);
 }
 
 .deck-tab-tray__btn {
@@ -412,24 +391,24 @@ input {
   display: inline-flex;
   align-items: center;
   gap: 3px;
-  min-height: 20px;
-  border: 1px solid rgba(188, 194, 230, 0.42);
-  background: linear-gradient(180deg, rgba(69, 73, 88, 0.48), rgba(15, 17, 24, 0.62));
-  box-shadow: inset 0 1px 0 rgba(246, 247, 255, 0.12);
+  min-height: 19px;
+  border: 1px solid rgba(204, 207, 225, 0.32);
+  background: #0d0f14;
+  box-shadow: none;
   color: #fff;
   font-size: 10px;
   font-weight: 650;
   letter-spacing: 0.01em;
-  padding: 3px 4px;
-  border-radius: 5px;
+  padding: 2px 4px;
+  border-radius: 4px;
   cursor: pointer;
   line-height: 1;
   transition: background 0.12s ease, border-color 0.12s ease, box-shadow 0.12s ease, color 0.12s ease;
 }
 
 .deck-tab-tray.is-active .deck-tab-tray__btn {
-  border-color: rgba(156, 159, 245, 0.48);
-  background: linear-gradient(180deg, rgba(58, 58, 114, 0.28), rgba(20, 20, 48, 0.38));
+  border-color: rgba(211, 207, 239, 0.3);
+  background: rgba(11, 9, 21, 0.72);
   color: #fff;
   box-shadow: inset 0 1px 0 rgba(239, 239, 255, 0.12);
 }
@@ -451,12 +430,21 @@ input {
 }
 
 .deck-tab-tray__btn--icon-only {
-  padding: 3px 5px;
+  padding: 2px 5px;
 }
 
 .deck-tab-tray__icon {
-  font-size: 10px;
+  display: inline-flex;
+  width: 10px;
+  height: 10px;
+  color: #fff;
   line-height: 1;
+}
+
+.deck-tab-tray__icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: currentColor;
 }
 
 /* ---------- Collapsed presentation (Phase 5) ----------

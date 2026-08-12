@@ -360,6 +360,9 @@
       group.appendChild(tab);
 
       // ---- Lower reflective action tray: Find / Open / Gear ----
+      // WHAT: lower-action symbols use currentColor SVG instead of native emoji.
+      // WHY: emoji retain platform-specific blue/yellow color and cannot be made reliably white.
+      // FUTURE / DO-NOT-BREAK: keep these icons stroke-only/currentColor so the reflected tray stays monochrome.
       const tray = document.createElement('div');
       tray.className = 'deck-tab-tray' + (isActive ? ' is-active' : '');
       tray.setAttribute('role', 'group');
@@ -370,7 +373,7 @@
       findBtn.className = 'deck-tab-tray__btn';
       findBtn.setAttribute('aria-label', `Find ${deck.name}`);
       findBtn.innerHTML =
-        '<span class="deck-tab-tray__icon" aria-hidden="true">\uD83D\uDD0D</span><span>Find</span>';
+        '<span class="deck-tab-tray__icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><circle cx="7" cy="7" r="4.25" stroke-width="1.7"/><path d="m10.2 10.2 3.15 3.15" stroke-width="1.7" stroke-linecap="round"/></svg></span><span>Find</span>';
       findBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         openFindDeckModal(deck);
@@ -381,7 +384,7 @@
       openBtn.className = 'deck-tab-tray__btn';
       openBtn.setAttribute('aria-label', `Open ${deck.name}`);
       openBtn.innerHTML =
-        '<span class="deck-tab-tray__icon" aria-hidden="true">\uD83D\uDCC1</span><span>Open</span>';
+        '<span class="deck-tab-tray__icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M1.75 4.25h4l1.35 1.5h7.15v6.75H1.75z" stroke-width="1.45" stroke-linejoin="round"/><path d="M1.75 5.75V3.5h4.1l1.2 1.25" stroke-width="1.45" stroke-linejoin="round"/></svg></span><span>Open</span>';
       openBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         performOpenDeck(deck);
@@ -391,7 +394,7 @@
       gearBtn.type = 'button';
       gearBtn.className = 'deck-tab-tray__btn deck-tab-tray__btn--icon-only';
       gearBtn.setAttribute('aria-label', `Deck settings for ${deck.name}`);
-      gearBtn.innerHTML = '<span class="deck-tab-tray__icon" aria-hidden="true">\u2699</span>';
+      gearBtn.innerHTML = '<span class="deck-tab-tray__icon" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><circle cx="8" cy="8" r="2.2" stroke-width="1.4"/><path d="M8 1.75v1.4M8 12.85v1.4M14.25 8h-1.4M3.15 8h-1.4M12.42 3.58l-.99.99M4.57 11.43l-.99.99M12.42 12.42l-.99-.99M4.57 4.57l-.99-.99" stroke-width="1.4" stroke-linecap="round"/></svg></span>';
       gearBtn.addEventListener('click', (e) => {
         e.stopPropagation();
         // Find/Open already have dedicated tray buttons in expanded
